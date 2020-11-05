@@ -1,0 +1,11 @@
+server:
+  port: 8080
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true  #\u683C\u5F0F\u5316SQL,\u5982\u679C\u4E0D\u52A0,SQL\u8F93\u51FA\u4E0D\u6362\u884C,\u4E0D\u65B9\u4FBF\u67E5\u770B
+

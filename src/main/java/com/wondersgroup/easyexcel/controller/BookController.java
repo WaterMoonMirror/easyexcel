@@ -3,16 +3,20 @@ package com.wondersgroup.easyexcel.controller;
 import com.alibaba.excel.EasyExcel;
 import com.google.common.collect.Lists;
 import com.wondersgroup.easyexcel.dto.Book;
+import com.wondersgroup.easyexcel.entity.BookDao;
+import com.wondersgroup.easyexcel.entity.BookEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author: lizhu@wondesgroup.com
@@ -21,12 +25,30 @@ import java.util.Set;
  */
 @Controller
 public class BookController {
+
+    @Autowired
+    private BookDao bookDao;
+
+    @PostMapping("/book")
+    @ResponseBody
+    public BookEntity save(BookEntity bookEntity){
+        bookEntity=bookDao.save(bookEntity);
+        return bookEntity;
+    }
+
+    @GetMapping("/book")
+    @ResponseBody
+    public List<BookEntity> query(){
+        List<BookEntity> books = bookDao.findAll();
+        return books;
+    }
+
     @GetMapping("/exportExcel")
     public void download(@ApiIgnore HttpServletResponse response) throws IOException {
 
         List<Book> books = Lists.newArrayList();
         for (int i = 0; i < 100; i++) {
-            books.add(Book.builder().author("author:"+i).title("title:"+i).build());
+            books.add(Book.builder().author("author:" + i).title("title:" + i).build());
         }
         // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
         response.setContentType("application/vnd.ms-excel");
