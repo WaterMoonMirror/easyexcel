@@ -2,6 +2,7 @@ package com.wondersgroup.easyexcel.controller;
 
 import com.alibaba.excel.EasyExcel;
 import com.google.common.collect.Lists;
+import com.wondersgroup.easyexcel.annotation.Log;
 import com.wondersgroup.easyexcel.dto.Book;
 import com.wondersgroup.easyexcel.entity.BookDao;
 import com.wondersgroup.easyexcel.entity.BookEntity;
@@ -31,6 +32,7 @@ public class BookController {
 
     @PostMapping("/book")
     @ResponseBody
+    @Log
     public BookEntity save(BookEntity bookEntity){
         bookEntity=bookDao.save(bookEntity);
         return bookEntity;
