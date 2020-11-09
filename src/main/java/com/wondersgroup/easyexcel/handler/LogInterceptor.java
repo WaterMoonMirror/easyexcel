@@ -1,6 +1,6 @@
 package com.wondersgroup.easyexcel.handler;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson.JSON;
 import com.wondersgroup.easyexcel.annotation.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
@@ -23,8 +23,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
         Log logger = method.getMethodAnnotation(Log.class);
         if (null != logger) {
             //这个是需要拦截的方法
-            Gson gson=new Gson();
-            log.info("[{}]请求被拦截，请求参数[{}]",method.getMethod().getName(), gson.toJson(method.getMethodParameters()));
+            log.info("[{}]请求被拦截，请求参数[{}]",method.getMethod().getName(), JSON.toJSON(method.getMethodParameters()));
         } else {
             //这个是不需要拦截的方法
             return true;
