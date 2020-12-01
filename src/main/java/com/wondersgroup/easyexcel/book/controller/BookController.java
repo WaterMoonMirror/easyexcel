@@ -1,16 +1,17 @@
-package com.wondersgroup.easyexcel.controller;
+package com.wondersgroup.easyexcel.book.controller;
 
 import com.alibaba.excel.EasyExcel;
 import com.google.common.collect.Lists;
 import com.wondersgroup.easyexcel.annotation.Log;
-import com.wondersgroup.easyexcel.dto.Book;
-import com.wondersgroup.easyexcel.entity.BookDao;
-import com.wondersgroup.easyexcel.entity.BookEntity;
+import com.wondersgroup.easyexcel.annotation.OpLog;
+import com.wondersgroup.easyexcel.book.dto.Book;
+import com.wondersgroup.easyexcel.book.dao.BookDao;
+import com.wondersgroup.easyexcel.book.entity.BookEntity;
+import com.wondersgroup.easyexcel.enums.OpType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -40,6 +41,7 @@ public class BookController {
 
     @GetMapping("/book")
     @ResponseBody
+    @OpLog(opType = OpType.QUERY, opItem = "order", opItemIdExpression = "#id")
     public List<BookEntity> query(){
         List<BookEntity> books = bookDao.findAll();
         return books;

@@ -1,4 +1,4 @@
-package com.wondersgroup.easyexcel.entity;
+package com.wondersgroup.easyexcel.book.entity;
 
 import lombok.Data;
 
